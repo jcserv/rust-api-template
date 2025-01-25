@@ -6,4 +6,4 @@
 
 ## references
 - [Actix Web Docs](https://actix.rs/docs/getting-started/)
-- [Create a blazingly fast REST API in Rust](https://hub.qovery.com/guides/tutorial/create-a-blazingly-fast-api-in-rust-part-1/)
+- [Build a CRUD API with Sqlx and PostgreSQL](https://codevoweb.com/rust-build-a-crud-api-with-sqlx-and-postgresql/)
