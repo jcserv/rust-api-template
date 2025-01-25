@@ -15,11 +15,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  rabbitmq:
-    image: rabbitmq:4.0.5-management-alpine
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     
 
 volumes:

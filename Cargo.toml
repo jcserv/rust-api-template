@@ -3,6 +3,9 @@ name = "rust-api-template"
 version = "0.1.0"
 edition = "2021"
 
+[workspace]
+members = ["tests"]
+
 [dependencies]
 actix-cors = "0.7.0"
 actix-web = "4"

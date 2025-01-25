@@ -1,0 +1,16 @@
+[package]
+name = "tests"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dev-dependencies]
+rust-api-template = { path = "../" }
+
+[[test]]
+name = "test_books_repository"
+path = "./books/repository.rs"
+
+[[test]]
+name = "test_books_routes"
+path = "./books/routes.rs"

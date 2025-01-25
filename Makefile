@@ -1,10 +1,13 @@
 include .env
 export
 
-.PHONY: build run run-watch dev-db dev-db-down
+.PHONY: build test run run-watch dev-db dev-db-down migrate test-db test-db-down
 
 build:
 	cargo build
+
+test:
+	cargo test
 
 run:
 	cargo run
@@ -20,3 +23,9 @@ dev-db-down:
 
 migrate:
 	sqlx migrate run
+
+test-db:
+	docker compose -p rust-api-template-test -f docker-compose.test.yml up --detach
+
+test-db-down:
+	docker compose -p rust-api-template-test -f docker-compose.test.yml down -v
