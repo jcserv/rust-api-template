@@ -1,15 +1,12 @@
-mod book;
-mod model;
-mod schema;
-
 use actix_cors::Cors;
 use actix_web::middleware::Logger;
 use actix_web::{http::header, web, App, HttpServer};
 use dotenv::dotenv;
-use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
+use rust_api_template::books;
+use rust_api_template::books::repository::BookRepository;
+use sqlx::postgres::PgPoolOptions;
 
 pub struct AppState {
-    db: Pool<Postgres>,
 }
 
 #[actix_web::main]
@@ -27,7 +24,7 @@ async fn main() -> std::io::Result<()> {
         .await
     {
         Ok(pool) => {
-            println!("✅Connection to the database is successful!");
+            println!("✅ Connected to the database");
             pool
         }
         Err(err) => {
@@ -35,6 +32,8 @@ async fn main() -> std::io::Result<()> {
             std::process::exit(1);
         }
     };
+
+    let book_repo = BookRepository::new(pool.clone());
 
     println!("🚀 Server started successfully");
 
@@ -49,8 +48,8 @@ async fn main() -> std::io::Result<()> {
             ])
             .supports_credentials();
         App::new()
-            .app_data(web::Data::new(AppState { db: pool.clone() }))
-            .configure(book::config)
+            .app_data(web::Data::new(book_repo.clone()))
+            .configure(books::config)
             .wrap(cors)
             .wrap(Logger::default())
     })
