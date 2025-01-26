@@ -8,10 +8,10 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/rust_api_template_test
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: rust_api_template_test
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
 
 jobs:
   ci:
