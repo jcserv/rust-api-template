@@ -1,8 +1,11 @@
 use rust_api_template::books::CreateBookSchema;
+use rust_api_template::error::Error;
+
+mod common;
 
 #[actix_web::test]
 async fn test_create_book_in_repository() {
-    let repo = crate::common::setup_test_db().await;
+    let repo = common::setup_test_db().await;
     
     let new_book = CreateBookSchema {
         title: "New Book".into(),
@@ -19,7 +22,7 @@ async fn test_create_book_in_repository() {
 
 #[actix_web::test]
 async fn test_get_nonexistent_book() {
-    let repo = crate::common::setup_test_db().await;
+    let repo = common::setup_test_db().await;
     let result = repo.get(999999).await;
     
     assert!(matches!(result, Err(Error::NotFound(_))));

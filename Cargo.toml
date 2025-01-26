@@ -3,8 +3,13 @@ name = "rust-api-template"
 version = "0.1.0"
 edition = "2021"
 
-[workspace]
-members = ["tests"]
+[[test]]
+name = "book_repository"
+path = "tests/book_repository.rs"
+
+[[test]]
+name = "book_routes"
+path = "tests/book_routes.rs"
 
 [dependencies]
 actix-cors = "0.7.0"

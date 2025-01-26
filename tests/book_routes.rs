@@ -2,9 +2,11 @@ use actix_web::{test, web, App};
 use rust_api_template::books::{self, CreateBookSchema, UpdateBookSchema};
 use rust_api_template::books::BookModel;
 
+mod common;
+
 #[actix_web::test]
 async fn test_create_book() {
-    let repo = crate::common::setup_test_db().await;
+    let repo = common::setup_test_db().await;
     let app = test::init_service(
         App::new()
             .app_data(web::Data::new(repo))
@@ -31,7 +33,7 @@ async fn test_create_book() {
 
 #[actix_web::test]
 async fn test_get_book() {
-    let repo = crate::common::setup_test_db().await;
+    let repo = common::setup_test_db().await;
     let app = test::init_service(
         App::new()
             .app_data(web::Data::new(repo.clone()))
@@ -39,14 +41,12 @@ async fn test_get_book() {
     )
     .await;
 
-    // First create a book
     let new_book = CreateBookSchema {
         title: "Test Book".into(),
         author_id: 1,
     };
     let created_book = repo.create(new_book).await.unwrap();
 
-    // Then try to get it
     let resp = test::TestRequest::get()
         .uri(&format!("/api/v1/books/{}", created_book.id))
         .send_request(&app)
@@ -59,7 +59,7 @@ async fn test_get_book() {
 
 #[actix_web::test]
 async fn test_update_book() {
-    let repo = crate::common::setup_test_db().await;
+    let repo = common::setup_test_db().await;
     let app = test::init_service(
         App::new()
             .app_data(web::Data::new(repo.clone()))
@@ -90,7 +90,7 @@ async fn test_update_book() {
 
 #[actix_web::test]
 async fn test_delete_book() {
-    let repo = crate::common::setup_test_db().await;
+    let repo = common::setup_test_db().await;
     let app = test::init_service(
         App::new()
             .app_data(web::Data::new(repo.clone()))
